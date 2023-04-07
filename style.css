@@ -9,24 +9,33 @@ header {
     background-color: rgb(19, 19, 20);
     margin: 0;
     padding: 0;
+    display: flex;
 
 }
 .burger {
     background-color: sandybrown;
     width: 50px;
     height: 50px;
+    display: flex;
+    justify-content: flex-start;
 }
 .logo {
-    font-family: nytFont;
+    font-family: nytFont, serif;
     color: rgb(199, 199, 200);
     font-size: xx-large;
-    display: flex;
+    align-self: center;
     justify-content: center;
-    align-items: center;
+
 }
-.container {
-    background-color: aqua;
+.utilities {
+    background-color: dodgerblue;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+
 }
+
 @font-face {
     font-family: nytFont;
     src: url("fonts/karnakpro-condensedblack.ttf");
@@ -40,11 +49,24 @@ header {
 .content {
 
 }
-
-.types {
+.board {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.tail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #f7f7f7;
+    color: #000;
+    border-radius: 50%;
+
 }
 .word {
 
@@ -56,5 +78,23 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    background-color: rgb(19, 19, 20);
+}
+.input-field {
+    width: 200px;
+    height: 30px;
+    border: solid 2px #ccc;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.submit-button {
+    color: #fff;
+    background-color: #4CAF50;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 5px 10px;
+    border: none;
 }
 
