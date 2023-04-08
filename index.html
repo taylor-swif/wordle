@@ -60,11 +60,49 @@
 
 
             <div class="keyboard">
-                <label>
-                    <input class="input-field" type="text" id="word-input" maxlength="5" placeholder="Enter a word">
-                </label>
-                <button class="submit-button" onclick="submitWord()">Submit</button>
+                <div class="keyborad-row">
+                    <button type="button" data-key="q" class="key">q</button>
+                    <button type="button" data-key="w" class="key">w</button>
+                    <button type="button" data-key="e" class="key">e</button>
+                    <button type="button" data-key="r" class="key">r</button>
+                    <button type="button" data-key="t" class="key">t</button>
+                    <button type="button" data-key="y" class="key">y</button>
+                    <button type="button" data-key="u" class="key">u</button>
+                    <button type="button" data-key="i" class="key">i</button>
+                    <button type="button" data-key="o" class="key">o</button>
+                    <button type="button" data-key="p" class="key">p</button>
+                </div>
+                <div class="keyborad-row">
+                    <button type="button" data-key="a" class="key">a</button>
+                    <button type="button" data-key="s" class="key">s</button>
+                    <button type="button" data-key="d" class="key">d</button>
+                    <button type="button" data-key="f" class="key">f</button>
+                    <button type="button" data-key="g" class="key">g</button>
+                    <button type="button" data-key="h" class="key">h</button>
+                    <button type="button" data-key="j" class="key">j</button>
+                    <button type="button" data-key="k" class="key">k</button>
+                    <button type="button" data-key="l" class="key">l</button>
+                </div>
+                <div class="keyborad-row">
+                    <button type="button" data-key="" class="key">enter</button>
+                    <button type="button" data-key="z" class="key">z</button>
+                    <button type="button" data-key="x" class="key">x</button>
+                    <button type="button" data-key="c" class="key">c</button>
+                    <button type="button" data-key="v" class="key">v</button>
+                    <button type="button" data-key="b" class="key">b</button>
+                    <button type="button" data-key="n" class="key">n</button>
+                    <button type="button" data-key="m" class="key">m</button>
+                    <button type="button" data-key="m" class="key">backspace</button>
+
+                </div>
+                <div class="keyborad-row">
+                    <label>
+                        <input class="input-field" type="text" id="word-input" maxlength="5" placeholder="Enter a word">
+                    </label>
+                    <button class="submit-button" onclick="submitWord()">Submit</button>
+                </div>
             </div>
+
 
     </div>
     <div class="attempts" id="attempts">Attempts: 0</div>
@@ -160,9 +198,9 @@
         if (word === inputWord){
             resetWord();
         }
-        // else if (attempts === MAX_ATTEMPTS){
-        //     resetWord();
-        // }
+        else if (attempts === MAX_ATTEMPTS){
+            resetWord();
+        }
 
     }
     generateWord();

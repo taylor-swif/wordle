@@ -95,11 +95,31 @@ background-color: rgb(19, 19, 20)
     width: 200px;
 }
 .keyboard {
+    margin-top: 20px;
+    background-color: rgb(19, 19, 20);
+}
+.keyborad-row {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    background-color: rgb(19, 19, 20);
+}
+.key {
+    width: 43px;
+    height: 58px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: franklinFont, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #818384;
+    color: white;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin: 2px 6px;
+    font-size: 20px;
 }
 .input-field {
     width: 200px;
