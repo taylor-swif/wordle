@@ -15,54 +15,53 @@
     </header>
     <div class="content">
 
-            <div class="board">
-                <div class="tile">W</div>
-                <div class="tile">O</div>
-                <div class="tile">R</div>
-                <div class="tile">D</div>
-                <div class="tile">L</div>
-                <div class="tile">E</div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
             </div>
-<!--            <div class="row">-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--                <div class="tile"></div>-->
-<!--            </div>-->
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="row">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
 
 
             <div class="keyboard">
                 <label>
-                    <input class="input-field" type="text" id="word-input" maxlength="6" placeholder="Enter a word">
+                    <input class="input-field" type="text" id="word-input" maxlength="5" placeholder="Enter a word">
                 </label>
                 <button class="submit-button" onclick="submitWord()">Submit</button>
             </div>
@@ -78,9 +77,9 @@
     let word ='';
     let attempts = 0;
     const MAX_ATTEMPTS = 6;
-    const WORD_LENGTH = 6;
+    const WORD_LENGTH = 5;
     const wordLetters = document.querySelectorAll('.tile');
-    const WORDS =["animal", "annual", "quartz", "banana", "fuckup"];
+    const WORDS =["kamil"];
     let isGuessed = new Array(WORD_LENGTH).fill(0);
 
     function generateWord(){
@@ -94,10 +93,22 @@
         wordLetters.forEach((letter) =>{
             letter.style.backgroundColor = "#131314";
             letter.style.color = '#fff';
+            letter.innerHTML = "";
         })
         document.getElementById("attempts").innerHTML = "Attempts: 0";
         document.getElementById("word-input").value = '';
 
+    }
+
+    function end(inputWord){
+        if (word === inputWord){
+            alert(`You won in ${attempts} attempts`);
+            resetWord();
+        }
+        else if (attempts === MAX_ATTEMPTS){
+            alert(`You lost! To many attempts!\nThe word was ${word}`);
+            resetWord();
+        }
     }
     function submitWord() {
         const inputWord = document.getElementById("word-input").value.toLowerCase();
@@ -105,16 +116,16 @@
             alert(`Pleas enter a word with ${WORD_LENGTH} letters`);
             return;
         }
-        attempts += 1;
-        document.getElementById('attempts').innerHTML = `Attempts: ${attempts}`;
+
         const letterMatches = [];
 
         for(let i = 0; i < WORD_LENGTH; i++){
             let letter = inputWord[i];
+            wordLetters[WORD_LENGTH * attempts + i].innerHTML = letter.toUpperCase();
             if(word.includes(letter)){
                 if (word[i] === letter) {
-                    wordLetters[i].style.backgroundColor = '#4CAF50';
-                    wordLetters[i].style.color = '#fff';
+                    wordLetters[WORD_LENGTH * attempts + i].style.backgroundColor = '#4CAF50';
+                    wordLetters[WORD_LENGTH * attempts + i].style.color = '#fff';
                     isGuessed[i] = 1;
                 } else {
                     letterMatches.push([letter,i]);
@@ -134,21 +145,25 @@
             while (idx !== -1) {
                 if (isGuessed[idx] === 0){
                     isGuessed[idx] = 2;
-                    wordLetters[letter_idx].style.backgroundColor = '#ffcc00'
-                    wordLetters[letter_idx].style.color = '#000';
+                    wordLetters[WORD_LENGTH * attempts + letter_idx].style.backgroundColor = '#ffcc00'
+                    wordLetters[WORD_LENGTH * attempts + letter_idx].style.color = '#000';
                     break;
                 }
                 idx = word.indexOf(letter, idx + 1);
             }
         }
+        attempts += 1;
+        document.getElementById('attempts').innerHTML = `Attempts: ${attempts}`;
+        isGuessed.fill(0);
+
+        //end(inputWord);
         if (word === inputWord){
-            alert(`You won in ${attempts}`);
             resetWord();
         }
-        else if (attempts === MAX_ATTEMPTS){
-            alert(`You lost! To many attempts!\nThe word was ${word}`);
-            resetWord();
-        }
+        // else if (attempts === MAX_ATTEMPTS){
+        //     resetWord();
+        // }
+
     }
     generateWord();
 </script>
