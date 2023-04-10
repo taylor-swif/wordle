@@ -45,6 +45,9 @@ header {
 }
 
 .tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 60px;
     height: 60px;
     margin-right: 10px;
@@ -68,6 +71,9 @@ header {
 }
 
 .key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 43px;
     height: 58px;
     background-color: #818384;
@@ -83,6 +89,6 @@ header {
     text-transform: uppercase;
 }
 .key--wide {
-    width: 86px;
+    width: 68px;
 }
 
