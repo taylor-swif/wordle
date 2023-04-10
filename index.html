@@ -83,7 +83,6 @@
                 </div>
                 <div class="keyboard-row">
                     <button type="button" class="key key--wide" onclick="submitWord()">Enter</button>
-                    <button type="button" value="e" class="key" onclick="addLetter(this.value)">e</button>
                     <button type="button" value="z" class="key" onclick="addLetter(this.value)">z</button>
                     <button type="button" value="x" class="key" onclick="addLetter(this.value)">x</button>
                     <button type="button" value="c" class="key" onclick="addLetter(this.value)">c</button>
@@ -109,7 +108,8 @@
     const MAX_ATTEMPTS = 6;
     const WORD_LENGTH = 5;
     const wordLetters = document.querySelectorAll('.tile');
-    const WORDS =['kamil'];
+    const buttons = document.querySelectorAll('.key');
+    const WORDS =['kamil', 'karol', 'konik', 'kutas'];
     let isGuessed = new Array(WORD_LENGTH).fill(0);
 
     function generateWord(){
@@ -132,6 +132,26 @@
             console.log(inputWord);
         }
     }
+    function colorButton(char, color) {
+        buttons.forEach(element => {
+            if (element.value === char){
+                switch (color) {
+                    case 0:
+                        element.style.backgroundColor = '#333334';
+                        element.style.color = '#fff';
+                        break;
+                    case 1:
+                        element.style.backgroundColor = '#4CAF50';
+                        element.style.color = '#fff';
+                        break;
+                    case 2:
+                        element.style.backgroundColor = '#ffcc00'
+                        element.style.color = '#000';
+                        break;
+                }
+            }
+        });
+    }
     function resetWord(){
         attempts = 0;
         generateWord();
@@ -140,6 +160,10 @@
             letter.style.color = '#fff';
             letter.innerHTML = "";
         })
+        buttons.forEach(element => {
+            element.style.backgroundColor = '#818384';
+            element.style.color = '#fff';
+        });
     }
 
     function submitWord() {
@@ -159,12 +183,13 @@
                     wordLetters[WORD_LENGTH * attempts + i].style.backgroundColor = '#4CAF50';
                     wordLetters[WORD_LENGTH * attempts + i].style.color = '#fff';
                     isGuessed[i] = 1;
+                    colorButton(letter, 1);
                 } else {
                     letterMatches.push([letter,i]);
                 }
             }
             else{
-                //todo
+                colorButton(letter, 0);
             }
         }
         console.log(letterMatches);
@@ -179,13 +204,13 @@
                     isGuessed[idx] = 2;
                     wordLetters[WORD_LENGTH * attempts + letter_idx].style.backgroundColor = '#ffcc00'
                     wordLetters[WORD_LENGTH * attempts + letter_idx].style.color = '#000';
+                    colorButton(letter, 2);
                     break;
                 }
                 idx = word.indexOf(letter, idx + 1);
             }
         }
         attempts += 1;
-        document.getElementById('attempts').innerHTML = `Attempts: ${attempts}`;
         isGuessed.fill(0);
 
         if (word === inputWord){
