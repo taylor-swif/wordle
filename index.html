@@ -9,9 +9,7 @@
 <body>
 <div class="container">
     <header>
-<!--        <div class="burger"></div>-->
         <div class="logo">Wordle</div>
-<!--        <div class="utilities"></div>-->
     </header>
     <div class="content">
 
@@ -60,64 +58,58 @@
 
 
             <div class="keyboard">
-                <div class="keyborad-row">
-                    <button type="button" data-key="q" class="key">q</button>
-                    <button type="button" data-key="w" class="key">w</button>
-                    <button type="button" data-key="e" class="key">e</button>
-                    <button type="button" data-key="r" class="key">r</button>
-                    <button type="button" data-key="t" class="key">t</button>
-                    <button type="button" data-key="y" class="key">y</button>
-                    <button type="button" data-key="u" class="key">u</button>
-                    <button type="button" data-key="i" class="key">i</button>
-                    <button type="button" data-key="o" class="key">o</button>
-                    <button type="button" data-key="p" class="key">p</button>
+                <div class="keyboard-row">
+                    <button type="button" value="q" class="key" onclick="addLetter(this.value)">q</button>
+                    <button type="button" value="w" class="key" onclick="addLetter(this.value)">w</button>
+                    <button type="button" value="e" class="key" onclick="addLetter(this.value)">e</button>
+                    <button type="button" value="r" class="key" onclick="addLetter(this.value)">r</button>
+                    <button type="button" value="t" class="key" onclick="addLetter(this.value)">t</button>
+                    <button type="button" value="y" class="key" onclick="addLetter(this.value)">y</button>
+                    <button type="button" value="u" class="key" onclick="addLetter(this.value)">u</button>
+                    <button type="button" value="i" class="key" onclick="addLetter(this.value)">i</button>
+                    <button type="button" value="o" class="key" onclick="addLetter(this.value)">o</button>
+                    <button type="button" value="p" class="key" onclick="addLetter(this.value)">p</button>
                 </div>
-                <div class="keyborad-row">
-                    <button type="button" data-key="a" class="key">a</button>
-                    <button type="button" data-key="s" class="key">s</button>
-                    <button type="button" data-key="d" class="key">d</button>
-                    <button type="button" data-key="f" class="key">f</button>
-                    <button type="button" data-key="g" class="key">g</button>
-                    <button type="button" data-key="h" class="key">h</button>
-                    <button type="button" data-key="j" class="key">j</button>
-                    <button type="button" data-key="k" class="key">k</button>
-                    <button type="button" data-key="l" class="key">l</button>
+                <div class="keyboard-row">
+                    <button type="button" value="a" class="key" onclick="addLetter(this.value)">a</button>
+                    <button type="button" value="s" class="key" onclick="addLetter(this.value)">s</button>
+                    <button type="button" value="d" class="key" onclick="addLetter(this.value)">d</button>
+                    <button type="button" value="f" class="key" onclick="addLetter(this.value)">f</button>
+                    <button type="button" value="g" class="key" onclick="addLetter(this.value)">g</button>
+                    <button type="button" value="h" class="key" onclick="addLetter(this.value)">h</button>
+                    <button type="button" value="j" class="key" onclick="addLetter(this.value)">j</button>
+                    <button type="button" value="k" class="key" onclick="addLetter(this.value)">k</button>
+                    <button type="button" value="l" class="key" onclick="addLetter(this.value)">l</button>
                 </div>
-                <div class="keyborad-row">
-                    <button type="button" data-key="" class="key">enter</button>
-                    <button type="button" data-key="z" class="key">z</button>
-                    <button type="button" data-key="x" class="key">x</button>
-                    <button type="button" data-key="c" class="key">c</button>
-                    <button type="button" data-key="v" class="key">v</button>
-                    <button type="button" data-key="b" class="key">b</button>
-                    <button type="button" data-key="n" class="key">n</button>
-                    <button type="button" data-key="m" class="key">m</button>
-                    <button type="button" data-key="m" class="key">backspace</button>
+                <div class="keyboard-row">
+                    <button type="button" class="key key--wide" onclick="submitWord()">Enter</button>
+                    <button type="button" value="e" class="key" onclick="addLetter(this.value)">e</button>
+                    <button type="button" value="z" class="key" onclick="addLetter(this.value)">z</button>
+                    <button type="button" value="x" class="key" onclick="addLetter(this.value)">x</button>
+                    <button type="button" value="c" class="key" onclick="addLetter(this.value)">c</button>
+                    <button type="button" value="v" class="key" onclick="addLetter(this.value)">v</button>
+                    <button type="button" value="b" class="key" onclick="addLetter(this.value)">b</button>
+                    <button type="button" value="n" class="key" onclick="addLetter(this.value)">n</button>
+                    <button type="button" value="m" class="key" onclick="addLetter(this.value)">m</button>
+                    <button type="button" class="key key--wide" onclick="backspace()">BACK</button>
 
-                </div>
-                <div class="keyborad-row">
-                    <label>
-                        <input class="input-field" type="text" id="word-input" maxlength="5" placeholder="Enter a word">
-                    </label>
-                    <button class="submit-button" onclick="submitWord()">Submit</button>
                 </div>
             </div>
 
 
     </div>
-    <div class="attempts" id="attempts">Attempts: 0</div>
-
 </div>
 
 </body>
 <script>
 
     let word ='';
+    let inputWord = '';
     let attempts = 0;
     const MAX_ATTEMPTS = 6;
     const WORD_LENGTH = 5;
     const wordLetters = document.querySelectorAll('.tile');
-    const WORDS =["kamil"];
+    const WORDS =['kamil'];
     let isGuessed = new Array(WORD_LENGTH).fill(0);
 
     function generateWord(){
@@ -125,6 +117,21 @@
         console.log(word);
     }
 
+
+    function addLetter(val) {
+        if (inputWord.length < WORD_LENGTH) {
+            inputWord += val;
+            wordLetters[attempts * WORD_LENGTH + inputWord.length - 1].innerHTML = val.toUpperCase();
+            console.log(inputWord === word);
+        }
+    }
+    function backspace() {
+        if (inputWord.length >= 1) {
+            wordLetters[attempts * WORD_LENGTH + inputWord.length - 1].innerHTML = "";
+            inputWord = inputWord.slice(0, inputWord.length - 1);
+            console.log(inputWord);
+        }
+    }
     function resetWord(){
         attempts = 0;
         generateWord();
@@ -133,23 +140,10 @@
             letter.style.color = '#fff';
             letter.innerHTML = "";
         })
-        document.getElementById("attempts").innerHTML = "Attempts: 0";
-        document.getElementById("word-input").value = '';
-
     }
 
-    function end(inputWord){
-        if (word === inputWord){
-            alert(`You won in ${attempts} attempts`);
-            resetWord();
-        }
-        else if (attempts === MAX_ATTEMPTS){
-            alert(`You lost! To many attempts!\nThe word was ${word}`);
-            resetWord();
-        }
-    }
     function submitWord() {
-        const inputWord = document.getElementById("word-input").value.toLowerCase();
+
         if (inputWord.length !== WORD_LENGTH){
             alert(`Pleas enter a word with ${WORD_LENGTH} letters`);
             return;
@@ -194,13 +188,15 @@
         document.getElementById('attempts').innerHTML = `Attempts: ${attempts}`;
         isGuessed.fill(0);
 
-        //end(inputWord);
         if (word === inputWord){
+            alert(`You won in ${attempts} attempts`);
             resetWord();
         }
         else if (attempts === MAX_ATTEMPTS){
+            alert(`You lost! To many attempts!\nThe word was ${word}`);
             resetWord();
         }
+        inputWord = '';
 
     }
     generateWord();
