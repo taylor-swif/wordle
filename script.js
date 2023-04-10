@@ -7,6 +7,7 @@ const wordLetters = document.querySelectorAll('.tile');
 const buttons = document.querySelectorAll('.key');
 const WORDS =['kamil', 'karol', 'konik', 'kutas'];
 let isGuessed = new Array(WORD_LENGTH).fill(0);
+const animation_duration = 500; // ms
 
 function generateWord(){
     word = WORDS[Math.floor(Math.random()*WORDS.length)];
@@ -76,8 +77,10 @@ function submitWord() {
         wordLetters[WORD_LENGTH * attempts + i].innerHTML = letter.toUpperCase();
         if(word.includes(letter)){
             if (word[i] === letter) {
+                wordLetters[WORD_LENGTH * attempts + i].classList.add('animated');
                 wordLetters[WORD_LENGTH * attempts + i].style.backgroundColor = '#4CAF50';
                 wordLetters[WORD_LENGTH * attempts + i].style.color = '#fff';
+                wordLetters[WORD_LENGTH * attempts + i].style.animationDelay = `${(i * animation_duration) / 2}ms`;
                 isGuessed[i] = 1;
                 colorButton(letter, 1);
             } else {
@@ -85,6 +88,9 @@ function submitWord() {
             }
         }
         else{
+            wordLetters[WORD_LENGTH * attempts + i].classList.add('animated');
+            wordLetters[WORD_LENGTH * attempts + i].style.animationDelay = `${(i * animation_duration) / 2}ms`;
+
             colorButton(letter, 0);
         }
     }
@@ -98,8 +104,11 @@ function submitWord() {
         while (idx !== -1) {
             if (isGuessed[idx] === 0){
                 isGuessed[idx] = 2;
+                wordLetters[WORD_LENGTH * attempts + letter_idx].classList.add('animated');
                 wordLetters[WORD_LENGTH * attempts + letter_idx].style.backgroundColor = '#ffcc00'
                 wordLetters[WORD_LENGTH * attempts + letter_idx].style.color = '#000';
+                wordLetters[WORD_LENGTH * attempts + i].style.animationDelay = `${(i * animation_duration) / 2}ms`;
+
                 colorButton(letter, 2);
                 break;
             }

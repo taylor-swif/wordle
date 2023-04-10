@@ -12,8 +12,19 @@ body {
     font-family: franklinFont;
     src: url("fonts/FranklinDemi.ttf");
 }
-.container {
-
+.animated {
+    animation: flip 0.7s ease;
+}
+@keyframes flip {
+    0% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }
 }
 header {
     display: flex;
