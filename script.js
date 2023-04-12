@@ -6,7 +6,8 @@ const WORD_LENGTH = 5;
 const wordLetters = document.querySelectorAll('.tile');
 const buttons = document.querySelectorAll('.key');
 const WORDS =['radio', 'coder', 'swift', 'witch', 'words', 'seven'];
-let isGuessed = new Array(WORD_LENGTH).fill(0);
+let is_painted = new Array(WORD_LENGTH).fill(0);
+let tile_color = new Array(WORD_LENGTH).fill(0);
 const flip_duration = 500;
 const jump_duration = 250;
 
@@ -19,20 +20,22 @@ function generateWord(){
 function addLetter(val) {
     if (inputWord.length < WORD_LENGTH) {
         inputWord += val;
-        wordLetters[attempts * WORD_LENGTH + inputWord.length - 1].innerHTML = val.toUpperCase();
-        wordLetters[attempts * WORD_LENGTH + inputWord.length - 1].classList.add('boom');
+        let element = wordLetters[attempts * WORD_LENGTH + inputWord.length - 1];
+        element.innerHTML = val.toUpperCase();
+        element.classList.add('boom');
         setTimeout(() =>{
-            wordLetters[attempts * WORD_LENGTH + inputWord.length - 1].classList.remove('boom');
+            element.classList.remove('boom');
         },jump_duration);
     }
 }
 function backspace() {
     if (inputWord.length >= 1) {
-        wordLetters[attempts * WORD_LENGTH + inputWord.length - 1].innerHTML = "";
+        let element = wordLetters[attempts * WORD_LENGTH + inputWord.length - 1];
+        element.innerHTML = "";
         inputWord = inputWord.slice(0, inputWord.length - 1);
-        wordLetters[attempts * WORD_LENGTH + inputWord.length - 1].classList.add('boom');
+        element.classList.add('boom');
         setTimeout(() =>{
-            wordLetters[attempts * WORD_LENGTH + inputWord.length - 1].classList.remove('boom');
+            element.classList.remove('boom');
         },jump_duration);
     }
 }
@@ -82,35 +85,27 @@ function submitWord() {
         return;
     }
 
-    const letterMatches = [];
-
     for(let i = 0; i < WORD_LENGTH; i++){
-
-        let letter = inputWord[i];
-        let element = wordLetters[WORD_LENGTH * attempts + i];
-        element.innerHTML = letter.toUpperCase();
-
-        if(word.includes(letter)){
-            if (word[i] === letter) {
-                isGuessed[i] = 1;
-            } else {
-                letterMatches.push([letter,i]);
-            }
+        if (word[i] === inputWord[i]) {
+            tile_color[i] = 1;
+            is_painted[i] = 1;
         }
     }
 
-    for (let i = 0; i < letterMatches.length; i++){
-        let letter = letterMatches[i][0];
-        let letter_idx = letterMatches[i][1]
-        let idx = word.indexOf(letter);
+    for(let i = 0; i < WORD_LENGTH; i++){
+        let letter = inputWord[i];
 
-        while (idx !== -1) {
-            if (isGuessed[idx] === 0){
-                isGuessed[idx] = 3;
-                isGuessed[letter_idx] = 2;
-                break;
+        if(word.includes(letter) && word[i] !== letter) {
+            let idx = word.indexOf(letter);
+
+            while (idx !== -1) {
+                if (is_painted[idx] === 0) {
+                    is_painted[idx] = 1;
+                    tile_color[i] = 2;
+                    break;
+                }
+                idx = word.indexOf(letter, idx + 1);
             }
-            idx = word.indexOf(letter, idx + 1);
         }
     }
 
@@ -119,7 +114,7 @@ function submitWord() {
         let element = wordLetters[WORD_LENGTH * attempts + i];
         let letter = element.textContent.toLowerCase();
 
-        switch (isGuessed[i]) {
+        switch (tile_color[i]) {
             case 3:
             case 0:
                 setTimeout(() =>{
@@ -154,7 +149,6 @@ function submitWord() {
     }
 
     attempts += 1;
-    console.log(word === inputWord);
 
     if (word === inputWord){
         setTimeout(() => {
@@ -166,7 +160,6 @@ function submitWord() {
         }, 5 * flip_duration);
         setTimeout(() => {
 
-            console.log(word === inputWord);
             alert(`You won in ${attempts} attempts`);
             resetWord();
         }, 5 * flip_duration + 5 * jump_duration);
@@ -178,6 +171,7 @@ function submitWord() {
         }, 6 * flip_duration);
     }
     inputWord = '';
-    isGuessed.fill(0);
+    is_painted.fill(0);
+    tile_color.fill(0);
 }
 generateWord();
